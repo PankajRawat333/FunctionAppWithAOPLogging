@@ -1,21 +1,21 @@
 ﻿using ArxOne.MrAdvice.Advice;
 using System;
+using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FunctionAppForLogTest.Aspect
 {
-    public class LoggerAspectAttribute : Attribute, IMethodAdvice
+    public class AsyncLoggerAspectAttribute : Attribute, IMethodAsyncAdvice
     {
-        public void Advise(MethodAdviceContext context)
+        public async Task Advise(MethodAsyncAdviceContext context)
         {
             //Logger initilizer here
             Console.WriteLine($"{context.TargetType.Name} started...");
-
             try
             {
-                context.Proceed(); // this calls the original method
+                await context.ProceedAsync(); // this calls the original method
             }
             catch (Exception ex)
             {

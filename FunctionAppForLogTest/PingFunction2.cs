@@ -11,17 +11,16 @@ namespace FunctionAppForLogTest
 {
     public static class PingFunction2
     {
-        [LoggerAspect]
+        [AsyncLoggerAspect]
         [FunctionName("PingFunction2")]
         public static async Task<HttpResponseMessage> Run([HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = null)]HttpRequestMessage req, TraceWriter log)
         {
-            string name = string.Empty;
             log.Info("C# HTTP trigger function processed a request.");
 
             SomeService someService = new SomeService();
             await someService.DoSomething();
 
-            return req.CreateResponse(HttpStatusCode.OK, "Hello " + name);
+            return req.CreateResponse(HttpStatusCode.OK, "Hello ");
         }
     }
 }
